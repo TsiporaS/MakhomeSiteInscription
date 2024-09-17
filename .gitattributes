@@ -1,0 +1,6 @@
+# Assurez-vous que les fichiers texte utilisent des LF (Unix) comme terminaison de ligne
+* text=auto
+
+# Pour les fichiers spécifiques, vous pouvez définir des règles spécifiques
+*.html text eol=lf
+*.md text eol=lf

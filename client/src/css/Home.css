@@ -1,0 +1,59 @@
+/* Styles for the Home page */
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.header .user-info {
+    margin-left: 10px;
+}
+
+.header .user-info a {
+    text-decoration: none;
+    color: blue;
+}
+
+.categories {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.categories .category {
+    margin-bottom: 10px;
+}
+
+.show-more-button {
+    margin-top: 10px;
+}
+
+.products {
+    margin-top: 20px;
+}
+
+.products h2 {
+    margin-bottom: 10px;
+}
+
+.product {
+    margin-bottom: 10px;
+}
+
+.gift-section {
+    margin-top: 20px;
+}
+
+.gift-section h5 {
+    margin-bottom: 10px;
+}
