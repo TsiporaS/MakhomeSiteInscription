@@ -27,7 +27,7 @@ export default function StudentDetails() {
       };
     
       const pointsStudent = () => {
-        navigate(`/manager/points/student/${studentId}`, { state: { studentFirstName: student.FirstName, studentLastName: student.LastName } }); // Redirige après acceptation
+        navigate(`/points/student/${studentId}`, { state: { studentFirstName: student.FirstName, studentLastName: student.LastName } }); // Redirige après acceptation
         // const query = `/manager/student/${studentId}/accept`;
         // GoToServer(query, "POST")
         //   .then(() => {
@@ -38,7 +38,11 @@ export default function StudentDetails() {
         //     console.error("Erreur lors de l'acceptation de l'étudiant:", error);
         //   });
       };
-      
+
+      const comingsStudent = () => {
+        navigate(`/manager/comings/student/${studentId}`, { state: { studentFirstName: student.FirstName, studentLastName: student.LastName } }); // Redirige après acceptation
+       
+      };
     
       if (!student) {
         return <p>Chargement...</p>;
@@ -65,6 +69,7 @@ export default function StudentDetails() {
           <p><strong>Contact du parent :</strong> {student.ParentPhone}</p>
     
           <button onClick={pointsStudent}>Voir ses points</button>
+          <button onClick={comingsStudent}>Voir ses passages au Makhome</button>
           <button onClick={() => navigate(-1)}>Retour</button>
         </div>
       );

@@ -21,6 +21,7 @@ import VirtualCard from "./components/VirtualCard";
 import StudentDetails from "./components/StudentDetails";
 import PointsStudent from "./components/PointsStudents";
 import QRCodeScanner from "./components/QRCodeScanner";
+import ComingsStudent from "./components/ComingsStudent";
 
 
 function App() {
@@ -40,7 +41,8 @@ function App() {
           <Route path="/manager/accept/student/:studentId" element={<Accept />} />
           <Route path="/barcode/:barcodeValue" element={<VirtualCard />} />
           <Route path="/manager/student/:studentId" element={<StudentDetails />} />
-          <Route path="/manager/points/student/:studentId" element={<PointsStudent />} />
+          <Route path="/points/student/:studentId" element={<PointsStudent />} />
+          <Route path="/manager/comings/student/:studentId" element={<ComingsStudent />} />
           <Route path="/scann" element={<QRCodeScanner />} />
           <Route index element={<Navigate to="/login" />} />
         </Routes>

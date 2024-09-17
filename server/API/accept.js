@@ -13,13 +13,13 @@ app.post("/send-email", (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'centremakhome@gmail.com', // Votre email
-      pass: 'votre-mot-de-passe', // Votre mot de passe
+      user: 'fidelitemakhome@gmail.com', // Votre email
+      pass: 'Makhome26!', // Votre mot de passe
     },
   });
 
   const mailOptions = {
-    from: 'centremakhome@gmail.com',
+    from: 'fidelitemakhome@gmail.com',
     to: email,
     subject: `Carte virtuelle pour ${firstName} ${lastName}`,
     html: `<p>Voici la carte virtuelle de ${firstName} ${lastName}.</p><img src="${image}" alt="Carte virtuelle"/>`,

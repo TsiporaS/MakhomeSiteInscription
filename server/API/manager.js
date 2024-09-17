@@ -6,8 +6,10 @@ const { authenticateUser } = require("../BL/fetchUserAndPwd");
 const { fetchDataFromTableCondition } = require("../BL/selectCondition");
 const { fetchDataWithManyConditions } = require("../BL/fetchDataWithManyConditions");
 const { fetchDataFromTable } = require("../BL/readTable");
-const { deleteFromTable } = require("../BL/deleteFromTable")
+const { deleteFromTable } = require("../BL/deleteFromTable");
+const { fetchManager, fetchPwdManager } = require("../BL/fetchManagerAndPwd");
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 
 const secretKey = "myVerySecretAndComplexKey123!";
 
@@ -34,27 +36,32 @@ app.post("/manager/login", async (req, res) => {
     console.log("Password", Password);
   
     try {
-      const manager = await authenticateUser(LastName, FirstName, Password);
+      const managerId = await getManagerId(FirstName, LastName); 
 
-      if (manager) {
-        const token = jwt.sign({ id: manager.Id, firstName: manager.FirstName, lastName: manager.LastName  }, secretKey, {
-          expiresIn: "1h",
-        });
-        console.log("Manager authenticated:", manager);
-        // res.json({ message: 'Login successful' });
-  
-        res.status(200).json({ token, managerId: manager.Id });
-        // console.log('res.status()', res.status());
-        // res.status(200).send(user);
-      } else {
-        console.log("Authentication failed for user:", FirstName + LastName);
-        res.status(401).json({ message: "Authentication failed" });
-      }
-    } catch (error) {
-      console.error("Error during login:", error.message);
-      res.status(500).json({ message: "Internal server error" });
+      if (managerId) {
+        const hashedPassword = await fetchPwdManager(managerId);
+
+        // Comparer le mot de passe fourni avec le mot de passe haché stocké
+        const isMatch = await bcrypt.compare(Password, hashedPassword);
+
+        if (isMatch) {
+            // Générer le token
+            const token = jwt.sign({ id: managerId, firstName: FirstName, lastName: LastName }, secretKey, {
+                expiresIn: "1h",
+            });
+            res.status(200).json({ message: "Login successful", token: token, managerId: managerId });
+        } else {
+            res.status(401).json({ message: "Invalid credentials" });
+        }
+    } else {
+        res.status(404).json({ message: "Manager not found" });
     }
-  });
+} catch (error) {
+    console.error("Error during login:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+}
+});
+
 
   app.post("/manager/signup", async (req, res) => {
     const { FirstName, LastName, Password } = req.body;
@@ -72,7 +79,11 @@ app.post("/manager/login", async (req, res) => {
         const thisManager = await fetchDataWithManyConditions("Manager", "FirstName", FirstName, "LastName", LastName);
         const managerId = thisManager[0].Id;
 
-        await insertToTable("Password", "ManagerId, Password", `'${managerId}', '${Password}`);
+        // Hacher le mot de passe
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(Password, saltRounds);
+
+        await insertToTable("Password", "ManagerId, Password", `'${managerId}', '${hashedPassword}`);
   
         // Generate the token
         const token = jwt.sign({ id: manager.Id, firstName: manager.FirstName, lastName: manager.LastName }, secretKey, {
@@ -246,6 +257,24 @@ app.get("/manager/students/allstudents", async (req, res) => {
         res.status(401).send("Points' student not found.");
       } else {
         res.status(200).json(myStudentPoints);
+      }
+    } catch (error) {
+      console.error("Error finding Student:", error.message);
+      res.status(401).send("Finding Student failed");
+    }
+  });
+
+  app.get("/manager/comings/:studentId", async (req, res) => {
+    try {
+
+    const studentId = req.params.studentId;
+
+    const myStudentComings = await fetchDataFromTableCondition("Coming", "StudentId", studentId);
+      
+    if (!myStudentComings || myStudentComings.length === 0) {
+        res.status(401).send("Comings' student not found.");
+      } else {
+        res.status(200).json(myStudentComings);
       }
     } catch (error) {
       console.error("Error finding Student:", error.message);

@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const { authenticateUser } = require("../BL/fetchUserAndPwd");
 const { insertToTable } = require("../BL/insertToTable");
 const { fetchDataFromTableCondition } = require("../BL/selectCondition");
-const {generateRandomCode} = require("../BL/genereRandomCode")
+const { generateRandomCode } = require("../BL/genereRandomCode");
+const { updateTable } = require("../BL/updateTable");
 
 app.use(bodyParser.json());
 
@@ -103,15 +104,28 @@ try {
 });
 
 // Exemple d'endpoint pour obtenir les détails d'un étudiant par son code
-app.get('/api/student/:barcode', async (req, res) => {
+app.post('/api/student/:barcode', async (req, res) => {
   const barcode = req.params.barcode;
+  const reason = req.body;
+  console.log('parameters', parameters);
 
   try {
     // Rechercher l'étudiant avec le code-barres
     const student = await fetchDataFromTableCondition("Student", "BarCode", barcode);
 
     if (student.length > 0) {
-      res.json(student[0]); // Renvoie le premier étudiant trouvé
+      // res.json(student[0]); // Renvoie le premier étudiant trouvé
+
+      // Récupérer la date et heure actuelle
+      const now = new Date();
+      const sqlDateTime = now.toISOString().slice(0, 19).replace('T', ' ');
+
+      await insertToTable("Coming", "StudentId, Date, Reason", `'${student[0].Id}', '${sqlDateTime}, '${reason}'`);
+      await updateTable("Point", "Points = Points + 1", `StudentId = '${student[0].Id}'`);
+
+      res.status(200).json(student[0]);
+      
+
     } else {
       res.status(404).json({ message: 'Étudiant non trouvé' });
     }

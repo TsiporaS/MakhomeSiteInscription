@@ -71,34 +71,39 @@ let fetchPwdManager = async (password) => {
     });
 };
 
-// Exemple d'utilisation de la fonction fetchUserAndPwd avec async/await
-async function authenticateUser(firstName, lastName, password) {
-  try {
-    console.log("hi");
+// // Exemple d'utilisation de la fonction fetchUserAndPwd avec async/await
+// async function authenticateUser(firstName, lastName, password) {
+//   try {
+//     console.log("hi");
 
-    const manager = await fetchManager(firstName, lastName);
-    console.log("Manager authenticated:", manager);
-    const pwd = await fetchPwdManager(password);
-    if (manager.length === 0)
-    {
-        console.log("Error fetching manager");
-    }
-    if (pwd.length === 0)
-    {
-        console.log("Error fetching password");
-    }
+//     const manager = await fetchManager(firstName, lastName);
+//     console.log("Manager authenticated:", manager);
+//     const hashedPassword = await fetchPwdManager(managerId);
 
-    if (manager[0].Id !== pwd[0].ManagerId) {
-        console.log("Password incorrect");
-    }  
-    else {
-        return manager;
-    }  
+//     // Comparer le mot de passe fourni avec le mot de passe haché stocké
+//     const isMatch = await bcrypt.compare(Password, hashedPassword);
+
+//     if (manager.length === 0)
+//     {
+//         console.log("Error fetching manager");
+//     }
+//     if (pwd.length === 0)
+//     {
+//         console.log("Error fetching password");
+//     }
+
+//     if (manager[0].Id !== pwd[0].ManagerId) {
+//         console.log("Password incorrect");
+//     }  
+//     else {
+//         return manager;
+//     }  
     
-  } catch (error) {
-    console.error("Authentication error:", error.message);
-    throw error; // Renvoie l'erreur pour une gestion ultérieure si nécessaire
-  }
-}
+//   } catch (error) {
+//     console.error("Authentication error:", error.message);
+//     throw error; // Renvoie l'erreur pour une gestion ultérieure si nécessaire
+//   }
+// }
 
-module.exports = { authenticateUser };
+module.exports = { fetchManager };
+module.exports = { fetchPwdManager };
