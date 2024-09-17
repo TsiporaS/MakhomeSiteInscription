@@ -16,7 +16,7 @@ con.connect(function(err) {
 }
 module.exports = {updateTable};
 
-updateTable("Point", "Points = Points + 1", `StudentId = '${student[0].Id}'`);
+// updateTable("Point", "Points = Points + 1", `StudentId = '${student[0].Id}'`);
 ///updateTable("users", "phone = '0546789567' WHERE id = 3" );
 // updateTable("Students", "age = 5", "name = 'Moshe'" );
 

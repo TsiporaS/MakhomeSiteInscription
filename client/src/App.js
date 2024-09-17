@@ -9,6 +9,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { UserProvider } from "./components/UserContext";
 import LogIn from "./components/LogIn";
+import LogInManager from "./components/LogInManager";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
 import HomeManager from "./components/HomeManager";
@@ -31,6 +32,7 @@ function App() {
       <UserProvider>
         <Routes>
           <Route path="/login" index element={<LogIn />} />
+          <Route path="/login/manager" index element={<LogInManager />} />
           <Route path="/home" element={<Home />} />
           <Route path="/manager/home" element={<HomeManager />} />
           <Route path="/signup" element={<SignUp />} />
@@ -44,7 +46,7 @@ function App() {
           <Route path="/points/student/:studentId" element={<PointsStudent />} />
           <Route path="/manager/comings/student/:studentId" element={<ComingsStudent />} />
           <Route path="/scann" element={<QRCodeScanner />} />
-          <Route index element={<Navigate to="/login" />} />
+          <Route index element={<Navigate to="/login/manager" />} />
         </Routes>
         {/* </Router> */}
       </UserProvider>

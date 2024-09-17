@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import QrReader from 'react-qr-reader';
-import { useNavigate } from 'react-router-dom';
+import { QrReader } from 'react-qr-reader';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../css/QRCodeScanner.css';
+import { GoToServer } from '../fetch';
 
 
 export default function QRCodeScanner() {
+  const studentId = useParams();
   const [result, setResult] = useState(null);
   const [student, setStudent] = useState(null);
   const [reason, setReason] = useState(""); // État pour le choix déroulant

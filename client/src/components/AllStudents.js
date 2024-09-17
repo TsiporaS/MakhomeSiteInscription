@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useContext } from 'react-router-dom';
 import { GoToServer } from '../fetch';
 import { useLocation } from 'react-router-dom';
-import { useDeleteProduct } from './DeleteContext';
 import '../css/AllStudents.css'; // Import the CSS file
+import { UserContext } from './UserContext';
 
 
 

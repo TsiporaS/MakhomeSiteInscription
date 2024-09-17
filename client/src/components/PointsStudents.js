@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom';
 import '../css/PointsStudent.css'; // Import the CSS file
+import { GoToServer } from '../fetch';
 
 export default function PointsStudent() {
     const navigate = useNavigate();

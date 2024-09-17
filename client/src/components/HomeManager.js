@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './css/HomeManager.css';
+import { useParams, useNavigate } from 'react-router-dom'; 
+import '../css/HomeManager.css';
 
 
 export default function HomeManager(){

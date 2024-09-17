@@ -9,7 +9,7 @@
     "nodemailer": "^6.9.15",
     "react-scripts": "^5.0.1"
   },
-  "name": "finalproject",
+  "name": "sitemakhome",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
