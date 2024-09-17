@@ -9,7 +9,7 @@ import { UserContext } from './UserContext';
 
 export default function AllStudents() {
     const [error, setError] = useState(null);
-    const { user } = useContext(UserContext);
+    //const { user } = useContext(UserContext);
     const navigate = useNavigate();
   
     const [students, setStudents] = useState(null);
@@ -33,7 +33,7 @@ export default function AllStudents() {
 
   // Fonction pour retourner à la page précédente
   const backToHome = () => {
-    navigate(-1);
+    navigate("/home");
   };
 
   // Fonction pour gérer le double-clic et rediriger vers la page des détails
@@ -43,7 +43,10 @@ export default function AllStudents() {
 
   // Affiche un message de chargement si les étudiants ne sont pas encore récupérés
   if (!students) {
-    return <p>Chargement...</p>;
+    return (<div>
+      <p>Chargement...</p>
+      <button onClick={backToHome}>Retour</button>
+      </div>);
   }
   
 

@@ -17,6 +17,7 @@ function insertToTable(tableName, columns, parameters) {
         "parameters",
         parameters
       );
+
       const placeholders = parameters.map(() => "?").join(", ");
 
       // const sql = `INSERT INTO ${tableName} (${columns}) VALUES (${parameters.map(() => '?').join(', ')})`;

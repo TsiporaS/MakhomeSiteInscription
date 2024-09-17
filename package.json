@@ -5,6 +5,7 @@
     "cors": "^2.8.5",
     "create-react-app": "^5.0.1",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.9",
     "nodemailer": "^6.9.15",
     "react-scripts": "^5.0.1"

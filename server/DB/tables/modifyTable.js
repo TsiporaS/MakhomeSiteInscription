@@ -4,8 +4,8 @@ async function alterTable(tableName, colonneName, modification) {
   const con = await mysql.createConnection({
     host: "localhost",
     user: "root", // Votre nom d'utilisateur MySQL
-    password: "Ofakim123?", // Votre mot de passe MySQL
-    database: "presentDB" // Votre nom de base de données MySQL
+    password: "Moshe26!", // Votre mot de passe MySQL
+    database: "makhomedb" // Votre nom de base de données MySQL
   });
 
   try {
@@ -24,6 +24,6 @@ async function alterTable(tableName, colonneName, modification) {
 }
 
 // Appel de la fonction pour modifier la colonne 'phone'
-alterTable("Present", "MaxPrice", "NVARCHAR(50)");
-alterTable("Product", "Price", "NVARCHAR(50)");
-alterTable("Cart", "Price", "NVARCHAR(50)");
+alterTable("Password", "Password", "NVARCHAR(255)");
+// alterTable("Product", "Price", "NVARCHAR(50)");
+// alterTable("Cart", "Price", "NVARCHAR(50)");

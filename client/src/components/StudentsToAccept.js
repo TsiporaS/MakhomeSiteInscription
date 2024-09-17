@@ -30,7 +30,7 @@ export default function StudentsToAccept() {
 
   // Fonction pour retourner à la page précédente
   const backToHome = () => {
-    navigate(-1);
+    navigate("/home");
   };
 
   // Fonction pour gérer le double-clic et rediriger vers la page des détails
@@ -40,8 +40,18 @@ export default function StudentsToAccept() {
 
   // Affiche un message de chargement si les étudiants ne sont pas encore récupérés
   if (!students) {
-    return <p>Chargement...</p>;
+    return (<div>
+      <p>Chargement...</p>
+      <button onClick={backToHome}>Retour</button>
+      </div>);
   }
+
+  // Fonction utilitaire pour formater la date
+  const formatDate = (dateString) => {
+  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  const date = new Date(dateString);
+  return date.toLocaleDateString('fr-FR', options);
+ };
 
   return (
     <div>
@@ -68,15 +78,15 @@ export default function StudentsToAccept() {
           {students.map((student) => (
             <tr key={student.Id} onDoubleClick={() => handleDoubleClick(student.Id)}>
               <td>{student.LastName}</td>
-              <td>{student.FirstName}</td>
+              <td>{student.FisrtName}</td>
               <td>{student.Phone}</td>
               <td>{student.Email}</td>
               <td>{student.Adress}</td>
-              <td>{student.Birthday}</td>
+              <td>{formatDate(student.Birthday)}</td>
               <td>{student.Studies}</td>
               <td>{student.Year}</td>
               <td>{student.School}</td>
-              <td>{student.Comunity}</td>
+              <td>{student.Community}</td>
             </tr>
           ))}
         </tbody>

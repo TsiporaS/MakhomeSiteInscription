@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 const { connectToDb } = require("../DB/tables/connectToDB");
 
-let fetchManager = async (firstName, lastName) => {
+async function fetchManager(firstName, lastName) {
   return new Promise((resolve, reject) => {
     const con = connectToDb();
 
@@ -36,7 +36,7 @@ let fetchManager = async (firstName, lastName) => {
   });
 };
 
-let fetchPwdManager = async (password) => {
+async function fetchPwdManager(password) {
     return new Promise((resolve, reject) => {
       const con = connectToDb();
   
@@ -47,7 +47,7 @@ let fetchPwdManager = async (password) => {
         }
   
         con.query(
-          `SELECT * FROM Password WHERE Password = ?`,
+          `SELECT * FROM Password WHERE ManagerId = ?`,
           [password],
           function (err, result, fields) {
             if (err) {
@@ -105,5 +105,4 @@ let fetchPwdManager = async (password) => {
 //   }
 // }
 
-module.exports = { fetchManager };
-module.exports = { fetchPwdManager };
+module.exports = { fetchManager, fetchPwdManager };

@@ -41,7 +41,7 @@ export default function SignUpManager() {
     const query = `/manager/signup`;    
     const parameters = convertFormDataToArray(formData);
 
-    GoToServer(query, "POST", { parameters })
+    GoToServer(query, "POST", parameters )
       .then((response) => {
         console.log("Server response:", response.message);
         alert("Enregistrement effectué");
@@ -58,6 +58,11 @@ export default function SignUpManager() {
         console.error("Error:", error);
         alert(error);
       });
+  };
+
+  // Fonction pour retourner à la page précédente
+  const backToHome = () => {
+    navigate(-1);
   };
 
   return (
@@ -100,6 +105,10 @@ export default function SignUpManager() {
 
         <button type="submit">S'inscrire</button>
       </form>
+
+  
+      <button onClick={backToHome}>Retour</button>
+      
     </div>
   );
 }

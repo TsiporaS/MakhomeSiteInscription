@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
 import { GoToServer, convertFormDataToArray } from "../fetch";
 import '../css/Accept.css'; // Import the CSS file
 
@@ -105,11 +105,6 @@ const { studentId } = useParams();
     
     if (missingFields.length > 0) {
       alert(`Les champs suivants sont obligatoires: ${missingFields.join(", ")}`);
-      return;
-    }
-
-    if (frequente === "Oui" && Community === "") {
-      alert("Veuillez renseigner le nom de la communauté.");
       return;
     }
 

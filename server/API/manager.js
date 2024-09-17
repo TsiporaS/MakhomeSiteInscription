@@ -8,6 +8,7 @@ const { fetchDataWithManyConditions } = require("../BL/fetchDataWithManyConditio
 const { fetchDataFromTable } = require("../BL/readTable");
 const { deleteFromTable } = require("../BL/deleteFromTable");
 const { fetchManager, fetchPwdManager } = require("../BL/fetchManagerAndPwd");
+const { insertToTable } = require("../BL/insertToTable");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 
@@ -36,20 +37,28 @@ app.post("/manager/login", async (req, res) => {
     console.log("Password", Password);
   
     try {
-      const managerId = await getManagerId(FirstName, LastName); 
+      const _manager = await fetchManager(FirstName, LastName); 
+      console.log("_manager", _manager);
 
-      if (managerId) {
-        const hashedPassword = await fetchPwdManager(managerId);
+      if (_manager) {
+        const hashedPassword = await fetchPwdManager(_manager.Id);
+
+        // Assurez-vous que vous accédez à la bonne propriété du mot de passe haché
+        const hashedPwd = hashedPassword.Password;
+            
+        // Vérifiez les types
+        console.log("Password type:", typeof Password);
+        console.log("Hashed password type:", typeof hashedPwd);
 
         // Comparer le mot de passe fourni avec le mot de passe haché stocké
-        const isMatch = await bcrypt.compare(Password, hashedPassword);
+        const isMatch = await bcrypt.compare(Password, hashedPwd);
 
         if (isMatch) {
             // Générer le token
-            const token = jwt.sign({ id: managerId, firstName: FirstName, lastName: LastName }, secretKey, {
+            const token = jwt.sign({ id: _manager.Id, firstName: FirstName, lastName: LastName }, secretKey, {
                 expiresIn: "1h",
             });
-            res.status(200).json({ message: "Login successful", token: token, managerId: managerId });
+            res.status(200).json({ message: "Login successful", token: token, managerId:  _manager.Id });
         } else {
             res.status(401).json({ message: "Invalid credentials" });
         }
@@ -64,7 +73,7 @@ app.post("/manager/login", async (req, res) => {
 
 
   app.post("/manager/signup", async (req, res) => {
-    const { FirstName, LastName, Password } = req.body;
+    const [ FirstName, LastName, Password ] = req.body;
   
     try {
 
@@ -82,11 +91,12 @@ app.post("/manager/login", async (req, res) => {
         // Hacher le mot de passe
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(Password, saltRounds);
+        const parameters2 = [managerId, hashedPassword];
 
-        await insertToTable("Password", "ManagerId, Password", `'${managerId}', '${hashedPassword}`);
+        await insertToTable("Password", "ManagerId, Password", parameters2);
   
         // Generate the token
-        const token = jwt.sign({ id: manager.Id, firstName: manager.FirstName, lastName: manager.LastName }, secretKey, {
+        const token = jwt.sign({ id: managerId, firstName: FirstName, lastName: LastName }, secretKey, {
           expiresIn: "1h",
         });
   
@@ -103,29 +113,29 @@ app.post("/manager/login", async (req, res) => {
     }
   });
   
-  app.get("/user/:name", authenticateToken, async (req, res) => {
-    try {
-      const userName = req.params.name;
-      // console.log('userName', userName);
-      const user = await fetchDataFromTableCondition("User", "Mail", userName);
-      if (!user || user.length === 0) {
-        res.status(401).send("User not found.");
-      } else {
-        const userId = user[0].Id;
-        // console.log("userId", userId);
-        // res.status(200).json({ message: user[0].Id });
-        res.status(200).json({ message: userId });
-      }
-    } catch (error) {
-      console.error("Error finding user:", error.message);
-      res.status(401).send("Finding User failed");
-    }
-  });
+  // app.get("/user/:name", authenticateToken, async (req, res) => {
+  //   try {
+  //     const userName = req.params.name;
+  //     // console.log('userName', userName);
+  //     const user = await fetchDataFromTableCondition("User", "Mail", userName);
+  //     if (!user || user.length === 0) {
+  //       res.status(401).send("User not found.");
+  //     } else {
+  //       const userId = user[0].Id;
+  //       // console.log("userId", userId);
+  //       // res.status(200).json({ message: user[0].Id });
+  //       res.status(200).json({ message: userId });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error finding user:", error.message);
+  //     res.status(401).send("Finding User failed");
+  //   }
+  // });
 
   app.get("/manager/students/peinscription", async (req, res) => {
     try {
       
-      const studentsToAccept = await fetchDataFromTable("StudentsToAccept");
+      const studentsToAccept = await fetchDataFromTable("StudentToAccept");
       if (!studentsToAccept || studentsToAccept.length === 0) {
         res.status(401).send("Students not found.");
       } else {
@@ -147,7 +157,7 @@ app.post("/manager/login", async (req, res) => {
     if (!myStudent || myStudent.length === 0) {
         res.status(401).send("Students not found.");
       } else {
-        res.status(200).json({ myStudent: myStudent });
+        res.status(200).json( myStudent);
       }
     } catch (error) {
       console.error("Error finding Student:", error.message);
@@ -216,7 +226,7 @@ try {
 app.get("/manager/students/allstudents", async (req, res) => {
     try {
       
-      const allstudents = await fetchDataFromTable("Students");
+      const allstudents = await fetchDataFromTable("Student");
       if (!allstudents || allstudents.length === 0) {
         res.status(401).send("Students not found.");
       } else {
@@ -233,7 +243,7 @@ app.get("/manager/students/allstudents", async (req, res) => {
 
     const studentId = req.params.studentId;
 
-    const myStudent = await fetchDataFromTableCondition("Students", "Id", studentId);
+    const myStudent = await fetchDataFromTableCondition("Student", "Id", studentId);
       
     if (!myStudent || myStudent.length === 0) {
         res.status(401).send("Students not found.");

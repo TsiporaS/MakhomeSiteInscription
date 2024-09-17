@@ -42,7 +42,7 @@ async function fetchDataFromTable(tableName) {
 
 
 
-readFromTable("Cart");
+// readFromTable("Cart");
 //console.log('readFromTable', readFromTable);
 //console.log('fetchDataFromTable', fetchDataFromTable);
 

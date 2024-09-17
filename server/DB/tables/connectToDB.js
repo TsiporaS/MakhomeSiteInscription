@@ -11,7 +11,7 @@ const connectToDb = () => {
 
   connection.connect(function (err) {
     if (err) throw err;
-    console.log("Connected to presentDB successfully!");
+    console.log("Connected to makhomeDB successfully!");
   });
 
   return connection;
