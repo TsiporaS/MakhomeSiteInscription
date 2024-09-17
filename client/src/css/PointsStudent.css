@@ -1,0 +1,15 @@
+.category {
+    text-align: center;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+    font-size: 2rem;
+}
+
+p {
+    font-size: 1.5rem;
+    color: green;
+    font-weight: bold;
+}

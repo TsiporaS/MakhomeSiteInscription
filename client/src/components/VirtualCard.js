@@ -3,6 +3,8 @@ import { useLocation, useParams } from 'react-router-dom';
 import { QRCodeCanvas } from 'qrcode.react'; // Import du composant pour générer le QR code
 import html2canvas from 'html2canvas'; // Assurez-vous d'avoir installé html2canvas
 import logo from './logo-rond-makhome.png'; // Importe ton logo
+import '../css/VirtualCard.css';
+
 
 export default function VirtualCard() {
   const { barcodeValue } = useParams(); // Utilisation de useParams pour obtenir la valeur

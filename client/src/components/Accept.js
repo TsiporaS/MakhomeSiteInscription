@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { GoToServer, convertFormDataToArray } from "../fetch";
-import '../css/SignUp.css'; // Import the CSS file
+import '../css/Accept.css'; // Import the CSS file
 
 export default function Accept() {
 const { studentId } = useParams();

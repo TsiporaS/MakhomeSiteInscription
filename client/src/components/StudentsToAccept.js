@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { GoToServer } from "../fetch"; // Import de GoToServer pour les requêtes serveur
 import { UserContext } from "./UserContext"; // Contexte utilisateur
 import { useNavigate } from "react-router-dom"; // Pour la navigation
+import '../css/StudentsToAccept.css';
+
 
 export default function StudentsToAccept() {
   const { user } = useContext(UserContext);

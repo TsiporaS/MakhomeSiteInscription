@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import { GoToServer, GoToServer1 } from '../fetch';
-import '../css/CategoryDetails.css'; // Import the CSS file
+import '../css/StudentDetails.css'; // Import the CSS file
 
 export default function StudentDetails() {
     const { studentId } = useParams(); // Récupère l'ID de l'étudiant depuis l'URL

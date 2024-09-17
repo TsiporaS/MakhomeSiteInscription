@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router-dom';
-import '../css/Category.css'; // Import the CSS file
+import '../css/PointsStudent.css'; // Import the CSS file
 
 export default function PointsStudent() {
     const navigate = useNavigate();

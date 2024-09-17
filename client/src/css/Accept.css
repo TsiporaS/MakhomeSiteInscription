@@ -1,26 +1,21 @@
-h1, h3 {
-    text-align: center;
-    color: #333;
-}
-
 form {
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
     margin: 0 auto;
-    padding: 20px;
 }
 
 label {
-    display: block;
     margin-top: 10px;
     font-weight: bold;
 }
 
 input {
-    width: 100%;
     padding: 10px;
-    margin-top: 5px;
-    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 1rem;
     border: 1px solid #ced4da;
+    border-radius: 5px;
 }
 
 button {
@@ -28,16 +23,12 @@ button {
     padding: 10px 20px;
     font-size: 1rem;
     color: white;
-    background-color: #28a745;
+    background-color: #17a2b8;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #218838;
-}
-
-h4 {
-    margin-top: 20px;
+    background-color: #138496;
 }

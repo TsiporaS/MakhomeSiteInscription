@@ -1,17 +1,16 @@
-h1, h3 {
+h1 {
     text-align: center;
     color: #333;
 }
 
-form {
-    max-width: 600px;
+.forms {
+    max-width: 400px;
     margin: 0 auto;
-    padding: 20px;
 }
 
 label {
-    display: block;
     margin-top: 10px;
+    display: block;
     font-weight: bold;
 }
 
@@ -38,6 +37,13 @@ button:hover {
     background-color: #218838;
 }
 
-h4 {
+.error-message {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.signup-button {
     margin-top: 20px;
+    text-align: center;
 }

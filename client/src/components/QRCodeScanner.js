@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import QrReader from 'react-qr-reader';
 import { useNavigate } from 'react-router-dom';
+import '../css/QRCodeScanner.css';
+
 
 export default function QRCodeScanner() {
   const [result, setResult] = useState(null);

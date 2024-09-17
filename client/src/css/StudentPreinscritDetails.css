@@ -1,13 +1,16 @@
-.header {
-    background-color: #f8f9fa;
-    padding: 20px;
+h1 {
     text-align: center;
-    font-size: 2rem;
-    color: #343a40;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+    margin: 10px 0;
 }
 
 button {
-    margin: 10px;
+    margin-top: 20px;
     padding: 10px 20px;
     font-size: 1rem;
     color: white;
@@ -19,4 +22,8 @@ button {
 
 button:hover {
     background-color: #218838;
+}
+
+button + button {
+    margin-left: 10px;
 }

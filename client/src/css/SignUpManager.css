@@ -1,10 +1,11 @@
-h1, h3 {
+h1 {
     text-align: center;
     color: #333;
+    margin-bottom: 20px;
 }
 
 form {
-    max-width: 600px;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -28,16 +29,12 @@ button {
     padding: 10px 20px;
     font-size: 1rem;
     color: white;
-    background-color: #28a745;
+    background-color: #007bff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #218838;
-}
-
-h4 {
-    margin-top: 20px;
+    background-color: #0056b3;
 }

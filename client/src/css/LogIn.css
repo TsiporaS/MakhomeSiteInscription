@@ -1,69 +1,53 @@
-/* Styles for the Login page */
-
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
-
 h1 {
-    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
 }
 
 .buttons {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     margin-bottom: 20px;
 }
 
-.buttons button {
-    margin: 0 10px;
+button {
     padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.forms {
-    width: 300px;
-    margin: 0 auto;
-}
-
-.forms label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.forms input[type="text"],
-.forms input[type="password"] {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.forms button[type="submit"] {
-    width: 100%;
-    padding: 10px;
+    font-size: 1rem;
+    color: white;
     background-color: #007bff;
-    color: #fff;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
-.forms button[type="submit"]:hover {
+button:hover {
     background-color: #0056b3;
 }
 
-.forms .signup-button {
+.forms {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
     margin-top: 10px;
-    text-align: center;
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
 }
 
 .error-message {
     color: red;
     margin-top: 10px;
+    font-weight: bold;
+}
+
+.signup-button {
+    margin-top: 20px;
     text-align: center;
 }

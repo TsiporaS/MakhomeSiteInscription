@@ -3,8 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { GoToServer } from '../fetch';
 import { useLocation } from 'react-router-dom';
 import { useDeleteProduct } from './DeleteContext';
+import '../css/AllStudents.css'; // Import the CSS file
 
-// import '../css/Cart.css'; // Assurez-vous d'avoir un fichier CSS pour styliser le panier
+
 
 export default function AllStudents() {
     const [error, setError] = useState(null);

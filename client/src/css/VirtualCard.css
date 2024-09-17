@@ -1,0 +1,38 @@
+.card-container {
+    width: 300px;
+    height: 400px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 0 auto;
+}
+
+img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+button + button {
+    margin-left: 10px;
+}

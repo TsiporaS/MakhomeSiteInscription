@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './css/HomeManager.css';
 
 
 export default function HomeManager(){

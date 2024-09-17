@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../css/LogInManager.css';
 
 export default function LogInManager(){
     const [loginData, setLoginData] = useState({ LastName: '', FirstName: '', Password: '' });
