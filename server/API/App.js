@@ -6,6 +6,7 @@ const accept = require("./accept");
 
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 

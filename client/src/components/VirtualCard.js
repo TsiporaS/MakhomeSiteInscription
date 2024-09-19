@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { QRCodeCanvas } from 'qrcode.react'; // Import du composant pour générer le QR code
 import html2canvas from 'html2canvas'; // Assurez-vous d'avoir installé html2canvas
 import logo from './logo-rond-makhome.png'; // Importe ton logo
@@ -11,6 +11,7 @@ export default function VirtualCard() {
   const { barcodeValue } = useParams(); // Utilisation de useParams pour obtenir la valeur
   const cardRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const { studentFirstName, studentLastName, studentEmail } = location.state || {};
 
   // Fonction pour capturer la carte virtuelle sous forme d'image
@@ -29,8 +30,11 @@ export default function VirtualCard() {
 
   // Fonction pour envoyer l'image par mail
   const handleSendByEmail = async () => {
+    // const canvas = await html2canvas(cardRef.current, { scale: 0.5 });
     const canvas = await html2canvas(cardRef.current);
-    const imgData = canvas.toDataURL("image/png");
+    const imgData = canvas.toDataURL("image/png"); 
+
+    console.log("Image Data URL:", imgData);
 
     // Appeler la fonction pour envoyer l'image par mail
     sendImageByEmail(imgData);
@@ -38,32 +42,65 @@ export default function VirtualCard() {
 
   // Fonction pour envoyer l'image au serveur
   const sendImageByEmail = async (imgData) => {
-    try {
+    // try {
 
-      const query = "/send-email";
-      const formData = {
-        image: imgData,
-        firstName: studentFirstName,
-        lastName: studentLastName,
-        email: studentEmail // Remplace par l'email destinataire
-      }
-
-      const parameters = convertFormDataToArray(formData);
-
-      console.log("parameters mail", parameters);
+    //   const blob = await (await fetch(imgData)).blob(); // Convertir en Blob
+    //   const formData = new FormData();
+    //   formData.append('image', blob, 'virtual_card.png'); // Ajouter l'image sous forme de fichier
 
 
-      const response = await GoToServer(query, "POST", parameters);
+    //   const query = "/send-email";
+    //   const myData = {
+    //     image: imgData,
+    //     firstName: studentFirstName,
+    //     lastName: studentLastName,
+    //     email: studentEmail // Remplace par l'email destinataire
+    //   }
 
-      if (response.ok) {
-        alert("L'image a été envoyée par email avec succès !");
-      } else {
-        alert("Une erreur est survenue lors de l'envoi de l'email.");
-      }
-    } catch (error) {
-      console.error("Erreur lors de l'envoi de l'email:", error);
+    //   const parameters = convertFormDataToArray(myData);
+
+    //   console.log("parameters mail", parameters);
+
+
+    //   const response = await GoToServer(query, "POST", parameters);
+
+    //   if (response.status === 200) {
+    //     const message = await response.message; // Attendre une réponse texte
+    //     alert(message); // Afficher l'alerte avec le message du serveur
+    //     // alert("L'image a été envoyée par email avec succès !");
+    //   } else {
+    //     alert("Une erreur est survenue lors de l'envoi de l'email.");
+    //   }
+
+    // } catch (error) {
+    //   console.error("Erreur lors de l'envoi de l'email:", error);
+    // }
+
+    const query = "/send-email";
+    const myData = {
+      image: imgData,
+      firstName: studentFirstName,
+      lastName: studentLastName,
+      email: studentEmail // Remplace par l'email destinataire
     }
+
+    const parameters = convertFormDataToArray(myData);
+
+
+  await GoToServer(query, "POST", parameters)
+  .then((response) => {
+    alert("L'image a été envoyée par email avec succès !");
+  })
+  .catch((error) => {
+    console.error("Erreur lors de l'envoi de l'email:", error);
+  });
+};
+
+  // Fonction pour retourner à la page précédente
+  const backToHome = () => {
+    navigate("/manager/home");
   };
+  
 
   return (
     <div>
@@ -88,6 +125,7 @@ export default function VirtualCard() {
 
       <button onClick={handleCapture}>Télécharger la carte virtuelle</button>
       <button onClick={handleSendByEmail}>Envoyer par email</button>
+      <button onClick={backToHome}>Retour à la page d'accueil</button>
     </div>
   );
 }

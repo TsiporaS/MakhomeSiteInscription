@@ -7,7 +7,7 @@ import { GoToServer } from '../fetch';
 export default function PointsStudent() {
     const navigate = useNavigate();
     const studentId = useParams();
-    const [points, setPoints] = useState(null);
+    const [points, setPoints] = useState(0);
     const location = useLocation();
     const { studentFirstName, studentLastName } = location.state || {};
 
@@ -30,10 +30,12 @@ export default function PointsStudent() {
 
     return (
         <div className="category" >
-            <h2>Voici les points de: </h2>
+            <h2 className='titre'>Voici les points de: </h2>
             <h2>{studentFirstName} {studentLastName}</h2>
 
             <p> Félicitations ! Tu as {points} points </p>
+
+            <button onClick={() => navigate(-1)}>Retour</button>
 
 
         </div>

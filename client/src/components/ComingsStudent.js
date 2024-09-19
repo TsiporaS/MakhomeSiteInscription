@@ -27,7 +27,21 @@ export default function ComingsStudent() {
             console.error("Erreur lors de la récupération des détails de l'étudiant:", error);
           });
       };
+      
+      // Fonction pour retourner à la page précédente
+    const backToHome = () => {
+    navigate(-1);
+    };
 
+
+      if(!comings) {
+        return (<div>
+          <p>{studentFirstName} {studentLastName} n'est pas encore venue au Makhome.</p>
+          <button onClick={backToHome}>Retour</button>
+          </div>);
+      }
+
+      
     
       return (
         <div>

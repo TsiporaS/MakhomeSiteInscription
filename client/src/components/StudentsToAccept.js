@@ -30,7 +30,7 @@ export default function StudentsToAccept() {
 
   // Fonction pour retourner à la page précédente
   const backToHome = () => {
-    navigate("/home");
+    navigate("/manager/home");
   };
 
   // Fonction pour gérer le double-clic et rediriger vers la page des détails

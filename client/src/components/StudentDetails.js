@@ -27,7 +27,7 @@ export default function StudentDetails() {
       };
     
       const pointsStudent = () => {
-        navigate(`/points/student/${studentId}`, { state: { studentFirstName: student.FirstName, studentLastName: student.LastName } }); // Redirige après acceptation
+        navigate(`/points/student/${studentId}`, { state: { studentFirstName: student.FisrtName, studentLastName: student.LastName } }); // Redirige après acceptation
         // const query = `/manager/student/${studentId}/accept`;
         // GoToServer(query, "POST")
         //   .then(() => {
@@ -40,30 +40,37 @@ export default function StudentDetails() {
       };
 
       const comingsStudent = () => {
-        navigate(`/manager/comings/student/${studentId}`, { state: { studentFirstName: student.FirstName, studentLastName: student.LastName } }); // Redirige après acceptation
+        navigate(`/manager/comings/student/${studentId}`, { state: { studentFirstName: student.FisrtName, studentLastName: student.LastName } }); // Redirige après acceptation
        
       };
     
       if (!student) {
         return <p>Chargement...</p>;
       }
+
+      // Fonction utilitaire pour formater la date
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', options);
+   };
     
       return (
         <div>
           <h1>Détails de l'étudiant</h1>
           <p><strong>Nom :</strong> {student.LastName}</p>
-          <p><strong>Prénom :</strong> {student.FirstName}</p>
+          <p><strong>Prénom :</strong> {student.FisrtName}</p>
           <p><strong>Téléphone :</strong> {student.Phone}</p>
           <p><strong>Email :</strong> {student.Email}</p>
           <p><strong>Adresse :</strong> {student.Road}</p>
           <p><strong>Pays :</strong> {student.Country}</p>
           <p><strong>Ville :</strong> {student.City}</p>
           <p><strong>Code postal :</strong> {student.PostalCode}</p>
-          <p><strong>Date de naissance :</strong> {student.Birthday}</p>
+          <p><strong>Date de naissance :</strong> {formatDate(student.Birthday)}</p>
           <p><strong>Domaine d'études :</strong> {student.Studies}</p>
           <p><strong>Année d'études :</strong> {student.Year}</p>
           <p><strong>Lycée fréquenté :</strong> {student.School}</p>
-          <p><strong>Communauté :</strong> {student.Comunity}</p>
+          <p><strong>Communauté :</strong> {student.Community}</p>
           <p><strong>Prénom du parent :</strong> {student.ParentFirstName}</p>
           <p><strong>Nom du parent :</strong> {student.ParentLastName}</p>
           <p><strong>Contact du parent :</strong> {student.ParentPhone}</p>

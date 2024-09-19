@@ -111,6 +111,51 @@ const { studentId } = useParams();
     const query = `/manager/student/${studentId}/accept`;    
     const parameters = convertFormDataToArray(formData);
 
+//     try {
+//       const response = GoToServer(query, "POST", parameters);
+
+//     if (response.ok) {
+//       console.log("Server response:", response.message);
+//         alert("Enregistrement effectué");
+        
+
+//         // Clear form fields
+//         setFormData({
+//             FirstName: "",
+//             LastName: "",
+//             Phone: "",
+//             Email: "",
+//             Birthday: "",
+//             Country: "",
+//             City: "",
+//             PostalCode: "",
+//             Road: "",
+//             School: "",
+//             Studies: "",
+//             Year: "",
+//             Community: "",
+//             ParentFirstName: "",
+//             ParentLastName: "",
+//             ParentPhone: ""
+//         });
+
+//         const barcodeValue = response.itsbarcode;
+//         navigate(`/barcode/${barcodeValue}`, { state: { studentFirstName: FirstName, studentLastName: LastName, studentEmail: Email } });
+//     }
+//     else if (response.status === 409) {
+//       alert("L'étudiant existe déjà.");
+//     }
+//     else {
+//       alert("Erreur lors de l'enregistrement de l'étudiant.");
+//     }
+// }
+//     catch(error) {
+//       console.error("Error:", error);
+//       alert(error.message);
+//     }
+
+    
+
     GoToServer(query, "POST", parameters)
       .then((response) => {
         console.log("Server response:", response.message);
@@ -142,7 +187,7 @@ const { studentId } = useParams();
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert(error);
+        alert(error.message);
       });
   };
 

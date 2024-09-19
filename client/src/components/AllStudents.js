@@ -33,7 +33,7 @@ export default function AllStudents() {
 
   // Fonction pour retourner à la page précédente
   const backToHome = () => {
-    navigate("/home");
+    navigate("/manager/home");
   };
 
   // Fonction pour gérer le double-clic et rediriger vers la page des détails
@@ -48,6 +48,13 @@ export default function AllStudents() {
       <button onClick={backToHome}>Retour</button>
       </div>);
   }
+
+   // Fonction utilitaire pour formater la date
+   const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', options);
+   };
   
 
     return (
@@ -81,18 +88,18 @@ export default function AllStudents() {
           {students.map((student) => (
             <tr key={student.Id} onDoubleClick={() => handleDoubleClick(student.Id)}>
               <td>{student.LastName}</td>
-              <td>{student.FirstName}</td>
+              <td>{student.FisrtName}</td>
               <td>{student.Phone}</td>
               <td>{student.Email}</td>
               <td>{student.Road}</td>
               <td>{student.Country}</td>
               <td>{student.City}</td>
               <td>{student.PostalCode}</td>
-              <td>{student.Birthday}</td>
+              <td>{formatDate(student.Birthday)}</td>
               <td>{student.Studies}</td>
               <td>{student.Year}</td>
               <td>{student.School}</td>
-              <td>{student.Comunity}</td>
+              <td>{student.Community}</td>
               <td>{student.ParentFirstName}</td>
               <td>{student.ParentLastName}</td>
               <td>{student.ParentPhone}</td>

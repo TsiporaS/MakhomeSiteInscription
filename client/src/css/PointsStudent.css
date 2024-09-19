@@ -5,11 +5,16 @@
 
 h2 {
     color: #333;
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 p {
     font-size: 1.5rem;
     color: green;
     font-weight: bold;
+}
+
+.titre {
+    color: black;
+    font-size: 3rem;
 }

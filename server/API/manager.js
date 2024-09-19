@@ -239,7 +239,7 @@ app.get("/manager/students/allstudents", async (req, res) => {
 
     const studentId = req.params.studentId;
 
-    const myStudent = await fetchDataFromTableCondition("Studenttoaccept", "Id", studentId);
+    const myStudent = await fetchDataFromTableCondition("Student", "Id", studentId);
       
     if (!myStudent || myStudent.length === 0) {
         res.status(401).send("Student not found.");
