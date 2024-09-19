@@ -4,6 +4,7 @@ import { QRCodeCanvas } from 'qrcode.react'; // Import du composant pour génér
 import html2canvas from 'html2canvas'; // Assurez-vous d'avoir installé html2canvas
 import logo from './logo-rond-makhome.png'; // Importe ton logo
 import '../css/VirtualCard.css';
+import { convertFormDataToArray, GoToServer } from '../fetch';
 
 
 export default function VirtualCard() {
@@ -38,18 +39,21 @@ export default function VirtualCard() {
   // Fonction pour envoyer l'image au serveur
   const sendImageByEmail = async (imgData) => {
     try {
-      const response = await fetch("/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          image: imgData,
-          firstName: studentFirstName,
-          lastName: studentLastName,
-          email: studentEmail // Remplace par l'email destinataire
-        }),
-      });
+
+      const query = "/send-email";
+      const formData = {
+        image: imgData,
+        firstName: studentFirstName,
+        lastName: studentLastName,
+        email: studentEmail // Remplace par l'email destinataire
+      }
+
+      const parameters = convertFormDataToArray(formData);
+
+      console.log("parameters mail", parameters);
+
+
+      const response = await GoToServer(query, "POST", parameters);
 
       if (response.ok) {
         alert("L'image a été envoyée par email avec succès !");

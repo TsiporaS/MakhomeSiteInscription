@@ -32,7 +32,7 @@ function App() {
       <UserProvider>
         <Routes>
           <Route path="/login" index element={<LogIn />} />
-          <Route path="/login/manager" index element={<LogInManager />} />
+          <Route path="/manager/login" index element={<LogInManager />} />
           <Route path="/home" element={<Home />} />
           <Route path="/manager/home" element={<HomeManager />} />
           <Route path="/signup" element={<SignUp />} />
@@ -46,7 +46,7 @@ function App() {
           <Route path="/points/student/:studentId" element={<PointsStudent />} />
           <Route path="/manager/comings/student/:studentId" element={<ComingsStudent />} />
           <Route path="/scann" element={<QRCodeScanner />} />
-          <Route index element={<Navigate to="/login/manager" />} />
+          <Route index element={<Navigate to="/manager/login" />} />
         </Routes>
         {/* </Router> */}
       </UserProvider>

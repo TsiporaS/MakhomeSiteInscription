@@ -35,7 +35,7 @@ export default function StudentsToAccept() {
 
   // Fonction pour gérer le double-clic et rediriger vers la page des détails
   const handleDoubleClick = (studentId) => {
-    navigate(`/manager/student/${studentId}`); // Navigue vers la page de détails avec l'ID de l'étudiant
+    navigate(`/manager/studentpreinscrit/${studentId}`); // Navigue vers la page de détails avec l'ID de l'étudiant
   };
 
   // Affiche un message de chargement si les étudiants ne sont pas encore récupérés

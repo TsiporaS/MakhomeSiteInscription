@@ -1,12 +1,19 @@
-h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-}
-
 p {
     font-size: 1.2rem;
     margin: 10px 0;
+}
+
+/* Styles pour le label (Prénom, Nom, etc.) */
+p strong {
+    font-weight: bold;
+    color: #555; /* Couleur plus sombre pour le label */
+}
+
+/* Styles pour les données de l'étudiant (Sarah, etc.) */
+p .student-data {
+    font-weight: normal; /* Normal ou un peu plus léger pour les données */
+    color: #333; /* Une couleur différente pour le contenu */
+    margin-left: 10px; /* Ajoutez de l'espace entre le label et la donnée */
 }
 
 button {

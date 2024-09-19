@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 
 
 app.post("/send-email", (req, res) => {
-  const { image, firstName, lastName, email } = req.body;
+  const [ image, firstName, lastName, email ] = req.body;
 
   // Configurer Nodemailer
   const transporter = nodemailer.createTransport({

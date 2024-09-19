@@ -36,7 +36,7 @@ const { studentId } = useParams();
       .then((response) => {
         console.log("Détails de l'étudiant:", response);
         setFormData({
-            FirstName: response.FirstName,
+            FirstName: response.FisrtName,
             LastName: response.LastName,
             Phone: response.Phone,
             Email: response.Email,
@@ -111,7 +111,7 @@ const { studentId } = useParams();
     const query = `/manager/student/${studentId}/accept`;    
     const parameters = convertFormDataToArray(formData);
 
-    GoToServer(query, "POST", { parameters })
+    GoToServer(query, "POST", parameters)
       .then((response) => {
         console.log("Server response:", response.message);
         alert("Enregistrement effectué");
@@ -146,9 +146,18 @@ const { studentId } = useParams();
       });
   };
 
+  const formatDateForInput = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois de 0 à 11, donc +1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`; // Format YYYY-MM-DD
+  };
+  
+
   return (
     <div>
-      <h3>Inscrire cet étudiant </h3>
+      <h2>Inscrire cet étudiant </h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="lastname">Nom: *</label>
@@ -200,12 +209,12 @@ const { studentId } = useParams();
             type="date"
             id="birthday"
             name="Birthday"
-            value={formData.Birthday}
+            value={formatDateForInput(formData.Birthday)}
             onChange={handleChange}
             required
           />
         </div>
-        <h4>Adresse</h4>
+        <h3>Adresse</h3>
         <div>
           <label htmlFor="country">Pays: *</label>
           <input

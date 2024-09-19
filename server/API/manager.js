@@ -9,6 +9,7 @@ const { fetchDataFromTable } = require("../BL/readTable");
 const { deleteFromTable } = require("../BL/deleteFromTable");
 const { fetchManager, fetchPwdManager } = require("../BL/fetchManagerAndPwd");
 const { insertToTable } = require("../BL/insertToTable");
+const { generateRandomCode } = require("../BL/genereRandomCode");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 
@@ -152,12 +153,13 @@ app.post("/manager/login", async (req, res) => {
 
     const studentId = req.params.studentId;
 
-    const myStudent = await fetchDataFromTableCondition("StudentsToAccept", "Id", studentId);
+    const myStudent = await fetchDataFromTableCondition("StudentToAccept", "Id", studentId);
+    console.log("student", myStudent);
       
     if (!myStudent || myStudent.length === 0) {
         res.status(401).send("Students not found.");
       } else {
-        res.status(200).json( myStudent);
+        res.status(200).json( myStudent[0]);
       }
     } catch (error) {
       console.error("Error finding Student:", error.message);
@@ -167,7 +169,8 @@ app.post("/manager/login", async (req, res) => {
 
   app.post("/manager/student/:studentId/accept", async (req, res) => {
 
-    const params = req.body.parameters;
+    const [ FisrtName, LastName, Phone, Email, Birthday, Country, City, PostalCode, Road, School, 
+      Studies, Year, Community, ParentFirstName, ParentLastName, ParentPhone ] = req.body;
 
 const fields = [
   'FirstName', 'LastName', 'Phone', 'Email', 'Birthday', 
@@ -176,38 +179,31 @@ const fields = [
   'ParentFirstName', 'ParentLastName', 'ParentPhone',
 ];
 
-// Extract field values from params
-const fieldValues = fields.map(field => params[field]);
-
-console.log("req.body", params);
 
 try {
-  const myStudent = await fetchDataFromTableCondition("Student", "Email", fieldValues[3]);
+  const myStudent = await fetchDataFromTableCondition("Student", "Email", Email);
   console.log("myStudent", myStudent);
 
   let barcode = generateRandomCode(10);
-  let myStudent2 = await fetchDataFromTableCondition("Student", "BarCode", barcode);
+  let myStudent2 = await fetchDataFromTableCondition("Student", "Barcode", barcode);
   
   while (myStudent2.length !== 0) {
     barcode = generateRandomCode(10);
-    myStudent2 = await fetchDataFromTableCondition("Student", "BarCode", barcode);
+    myStudent2 = await fetchDataFromTableCondition("Student", "Barcode", barcode);
   }
 
   if (myStudent.length === 0) {
-    const columnNames = fields.map(field => field).join(', ');
-    const columnValues = [
-      `'${barcode}'`,
-      ...fieldValues.map(value => `'${value}'`)
-    ].join(', ');
+
+    const parameters = [barcode, FisrtName, LastName, Phone, Email, Birthday, Country, City, PostalCode, Road, School, 
+      Studies, Year, Community, ParentFirstName, ParentLastName, ParentPhone];
 
     await insertToTable(
       "Student",
-      columnNames,
-      columnValues
-    );
+      "Barcode, FisrtName, LastName, Phone, Email, Birthday, Country, City, PostalCode, Road, School, Studies, Year, Community, ParentFirstName, ParentLastName, ParentPhone",
+      parameters);
 
     if (res.status(200)) {
-        await deleteFromTable("StudentToAccept", "Email", fieldValues[3]);
+        await deleteFromTable("StudentToAccept", "Email", Email);
     }
     
       res.status(200).json({ message: "Student added successfully", itsbarcode: barcode });
@@ -243,12 +239,12 @@ app.get("/manager/students/allstudents", async (req, res) => {
 
     const studentId = req.params.studentId;
 
-    const myStudent = await fetchDataFromTableCondition("Student", "Id", studentId);
+    const myStudent = await fetchDataFromTableCondition("Studenttoaccept", "Id", studentId);
       
     if (!myStudent || myStudent.length === 0) {
-        res.status(401).send("Students not found.");
+        res.status(401).send("Student not found.");
       } else {
-        res.status(200).json({ myStudent: myStudent });
+        res.status(200).json(myStudent[0]);
       }
     } catch (error) {
       console.error("Error finding Student:", error.message);

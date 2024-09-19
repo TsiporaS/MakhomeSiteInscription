@@ -27,51 +27,38 @@ export default function StudentPreinscritDetails() {
       };
     
       const acceptStudent = () => {
-        navigate(`/manager/accept/student/${studentId}`); // Redirige après acceptation
-        // const query = `/manager/student/${studentId}/accept`;
-        // GoToServer(query, "POST")
-        //   .then(() => {
-        //     alert("Étudiant accepté");
-        //     navigate("/students"); // Redirige après acceptation
-        //   })
-        //   .catch((error) => {
-        //     console.error("Erreur lors de l'acceptation de l'étudiant:", error);
-        //   });
+        navigate(`/manager/accept/student/${studentId}`); 
       };
-    
-    //   const rejectStudent = () => {
-    //     const query = `/manager/student/${studentId}/reject`;
-    //     GoToServer(query, "POST")
-    //       .then(() => {
-    //         alert("Étudiant refusé");
-    //         navigate("/students"); // Redirige après rejet
-    //       })
-    //       .catch((error) => {
-    //         console.error("Erreur lors du rejet de l'étudiant:", error);
-    //       });
-    //   };
     
       if (!student) {
         return <p>Chargement...</p>;
       }
-    
-      return (
-        <div>
-          <h1>Détails de l'étudiant</h1>
-          <p><strong>Nom :</strong> {student.LastName}</p>
-          <p><strong>Prénom :</strong> {student.FirstName}</p>
-          <p><strong>Téléphone :</strong> {student.Phone}</p>
-          <p><strong>Email :</strong> {student.Email}</p>
-          <p><strong>Adresse :</strong> {student.Adress}</p>
-          <p><strong>Date de naissance :</strong> {student.Birthday}</p>
-          <p><strong>Domaine d'études :</strong> {student.Studies}</p>
-          <p><strong>Année d'études :</strong> {student.Year}</p>
-          <p><strong>Lycée fréquenté :</strong> {student.School}</p>
-          <p><strong>Communauté :</strong> {student.Comunity}</p>
-    
-          <button onClick={acceptStudent}>Accepter</button>
-          <button onClick={() => navigate(-1)}>Retour</button>
-        </div>
-      );
+
+      // Fonction utilitaire pour formater la date
+  const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', options);
+   };
+  
+        return (
+          <div>
+            <h1>Détails de l'étudiant</h1>
+            <p><strong>Nom :</strong> <span className="student-data">{student.LastName}</span></p>
+            <p><strong>Prénom :</strong> <span className="student-data">{student.FisrtName}</span></p>
+            <p><strong>Téléphone :</strong> <span className="student-data">{student.Phone}</span></p>
+            <p><strong>Email :</strong> <span className="student-data">{student.Email}</span></p>
+            <p><strong>Adresse :</strong> <span className="student-data">{student.Adress}</span></p>
+            <p><strong>Date de naissance :</strong> <span className="student-data">{formatDate(student.Birthday)}</span></p>
+            <p><strong>Domaine d'études :</strong> <span className="student-data">{student.Studies}</span></p>
+            <p><strong>Année d'études :</strong> <span className="student-data">{student.Year}</span></p>
+            <p><strong>Lycée fréquenté :</strong> <span className="student-data">{student.School}</span></p>
+            <p><strong>Communauté :</strong> <span className="student-data">{student.Community}</span></p>
+        
+            <button onClick={acceptStudent}>Accepter</button>
+            <button onClick={() => navigate(-1)}>Retour</button>
+          </div>
+        );
+      
 }
 

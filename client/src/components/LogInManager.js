@@ -31,7 +31,7 @@ export default function LogInManager(){
             })
             .catch((error) => {
                 console.error('Error:', error);
-                setErrorMessage('Username or password is incorrect.');
+                setErrorMessage('Le nom ou le mot de passe sont incorrects.');
             });
     };
 
