@@ -31,7 +31,7 @@ const { studentId } = useParams();
   }, []);
 
   const fetchStudentDetails = () => {
-    const query = `/manager/student/${studentId}`; // Requête pour obtenir les détails de l'étudiant
+    const query = `/manager/studentpreinscrit/${studentId}`; // Requête pour obtenir les détails de l'étudiant
     GoToServer(query, "GET")
       .then((response) => {
         console.log("Détails de l'étudiant:", response);

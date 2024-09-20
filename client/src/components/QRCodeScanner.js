@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { QrReader } from 'react-qr-reader';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../css/QRCodeScanner.css';
@@ -11,6 +11,35 @@ export default function QRCodeScanner() {
   const [student, setStudent] = useState(null);
   const [reason, setReason] = useState(""); // État pour le choix déroulant
   const navigate = useNavigate();
+
+  
+
+  // const handleScan = async (scanResult) => {
+  //   console.log("data", scanResult);
+  //   if (scanResult?.text ) {
+  //     const scannedData = scanResult.text;
+  //     setResult(scannedData);
+  
+  //     // Faire une requête API pour récupérer les détails de l'étudiant
+  //     try {
+  //       const query = `/api/student/${scannedData}`;    
+  //       const response = await GoToServer(query, "POST", reason);
+        
+  //       if (response.status === 200) {
+  //         console.log("Server response:", response);
+  //         const studentData = await response.json();
+  //         setStudent(studentData);
+  //         alert("Enregistrement effectué");
+  //       } else {
+  //         console.error('Étudiant non trouvé');
+  //         alert("Étudiant non trouvé");
+  //       }
+  //     } catch (error) {
+  //       console.error("Erreur lors de la récupération des détails de l'étudiant:", error);
+  //     }
+  //   }
+        
+  // };
 
   const handleScan = async (data) => {
     console.log("data", data);
@@ -66,6 +95,8 @@ export default function QRCodeScanner() {
   return (
     <div>
       <h1>Scanner le QR Code</h1>
+
+      
       <QrReader
         delay={300}
         onError={handleError}

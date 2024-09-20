@@ -41,6 +41,21 @@ export default function ComingsStudent() {
           </div>);
       }
 
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+      
+        // Obtenir les composants de la date
+        const day = String(date.getDate()).padStart(2, '0'); // Jour sur 2 chiffres
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Mois sur 2 chiffres (0-indexé)
+        const year = date.getFullYear();
+      
+        // Obtenir les composants de l'heure
+        const hours = String(date.getHours()).padStart(2, '0'); // Heure sur 2 chiffres
+        const minutes = String(date.getMinutes()).padStart(2, '0'); // Minutes sur 2 chiffres
+      
+        // Formater la date et l'heure comme souhaité
+        return `${day}/${month}/${year} ${hours}:${minutes}`;
+      }
       
     
       return (
@@ -57,7 +72,7 @@ export default function ComingsStudent() {
         <tbody>
           {comings.map((com) => (
             <tr key={com.Id}>
-              <td>{com.Date}</td>
+              <td>{formatDate(com.Date)}</td>
               <td>{com.Reason}</td>
             </tr>
           ))}

@@ -16,7 +16,8 @@ export default function PointsStudent() {
       }, [points]);
 
       const fetchStudentPoints = () => {
-        const query = `/manager/student/${studentId}/points`; // Requête pour obtenir les détails de l'étudiant
+        console.log("studentId", studentId.studentId);
+        const query = `/manager/student/${studentId.studentId}/points`; // Requête pour obtenir les détails de l'étudiant
         GoToServer(query, "GET")
           .then((response) => {
             console.log("Points de l'étudiant:", response[0].Points);

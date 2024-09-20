@@ -255,7 +255,9 @@ app.get("/manager/students/allstudents", async (req, res) => {
   app.get("/manager/student/:studentId/points", async (req, res) => {
     try {
 
+    // const studentId = req.params.studentId;
     const studentId = req.params.studentId;
+    console.log("studentId", studentId);
 
     const myStudentPoints = await fetchDataFromTableCondition("Point", "StudentId", studentId);
       
