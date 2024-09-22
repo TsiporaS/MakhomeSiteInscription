@@ -29,6 +29,12 @@ export default function PointsStudent() {
           });
       };
 
+      // Fonction pour retourner à la page précédente
+    const backToHome = () => {
+      navigate("/home");
+    };
+  
+
     return (
         <div className="category" >
             <h2 className='titre'>Voici les points de: </h2>
@@ -36,7 +42,7 @@ export default function PointsStudent() {
 
             <p> Félicitations ! Tu as {points} points </p>
 
-            <button onClick={() => navigate(-1)}>Retour</button>
+            <button onClick={backToHome}>Retour</button>
 
 
         </div>
