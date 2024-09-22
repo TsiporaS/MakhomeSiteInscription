@@ -42,6 +42,6 @@ module.exports = { insertToTable };
 // const parameters = [2, 5];
 // insertToTable("Point", "StudentId, Points", parameters);
 
-const now = new Date();
-const parameters = [2, now, "Cafeteria"];
-insertToTable("Coming", "StudentId, Date, Reason", parameters);
+// const now = new Date();
+// const parameters = [2, now, "Cafeteria"];
+// insertToTable("Coming", "StudentId, Date, Reason", parameters);

@@ -5,7 +5,7 @@ const { authenticateUser } = require("../BL/fetchUserAndPwd");
 const { insertToTable } = require("../BL/insertToTable");
 const { fetchDataFromTableCondition } = require("../BL/selectCondition");
 const { generateRandomCode } = require("../BL/genereRandomCode");
-const { updateTable } = require("../BL/updateTable");
+const { updateTable } = require("../BL/updatePoints");
 
 app.use(bodyParser.json());
 
@@ -106,8 +106,10 @@ try {
 // Exemple d'endpoint pour obtenir les détails d'un étudiant par son code
 app.post('/api/student/:barcode', async (req, res) => {
   const barcode = req.params.barcode;
-  const reason = req.body;
-  console.log('parameters', parameters);
+  // const reason = req.body;
+  const reason = req.body.reason;  // Assure-toi d'extraire correctement reason
+  console.log('barcode', barcode);
+  console.log('reason', reason);
 
   try {
     // Rechercher l'étudiant avec le code-barres
@@ -120,10 +122,14 @@ app.post('/api/student/:barcode', async (req, res) => {
       const now = new Date();
       const sqlDateTime = now.toISOString().slice(0, 19).replace('T', ' ');
 
-      await insertToTable("Coming", "StudentId, Date, Reason", `'${student[0].Id}', '${sqlDateTime}, '${reason}'`);
-      await updateTable("Point", "Points = Points + 1", `StudentId = '${student[0].Id}'`);
+      const parameters = [ student[0].Id, sqlDateTime, reason ];
 
-      res.status(200).json(student[0]);
+      await insertToTable("Coming", "StudentId, Date, Reason", parameters);
+      // await insertToTable("Coming", "StudentId, Date, Reason", `'${student[0].Id}', '${sqlDateTime}, '${reason}'`);
+      // await updateTable("Point", "Points = Points + 1", `StudentId = '${student[0].Id}'`);
+      await updateTable(student[0].Id);
+
+      res.status(200).json({message: "Operation reussie", student: student[0]});
       
 
     } else {

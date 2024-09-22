@@ -59,6 +59,36 @@ export async function GoToServer1(endpoint, method, data = null) {
     };
 }
 
+export async function GoToServer3(query, method, body) {
+    const serverPath = "http://localhost:5000";
+    let fullpath = serverPath + query;
+    console.log("fullpath::", fullpath);
+
+    const fetchOptions = {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body ? body : null
+    };
+
+    console.log("body", body);
+
+    console.log('fetchOptions', fetchOptions);
+    console.log('fetchOptions.body', fetchOptions.body);
+
+    return fetch(fullpath, fetchOptions)
+        .then((response) => {
+            console.log("response", response);
+            if (!response.ok) {
+                return response.text().then((text) => {
+                    throw new Error(`HTTP error! status: ${response.status}, response: ${text}`);
+                });
+            }
+            return response.json();
+        });
+}
+
 
 
 

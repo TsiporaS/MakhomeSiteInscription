@@ -6,11 +6,12 @@ import '../css/Home.css'
 
 export default function Home() {
     const { user } = useContext(UserContext);
+    const [reason, setReason] = useState(""); // État pour le choix déroulant
     const navigate = useNavigate();
     
     const goToScann = () => {
         
-        navigate(`/scann`);
+        navigate(`/scann`, { state: { reason: reason } });
     };
 
     const goToSignUp = () => {
@@ -23,7 +24,14 @@ export default function Home() {
             <div className="header">
                 <h1>Bienvenue </h1>
              </div>
-            <h2>Déjà venu au Makhome ?</h2>
+            <h2>Déjà inscrit au Makhome ?</h2>
+
+            <h3>Sélectionnez l'objet de votre venue *</h3>
+            <select value={reason} onChange={(e) => setReason(e.target.value)} required>
+            <option value="">Sélectionner</option>
+            <option value="Cafeteria">Cafeteria</option>
+            <option value="Conference">Conference</option>
+            </select>
             <button onClick={goToScann}> Scanner </button>
 
             <h2>Si tu es nouveau, inscris toi:</h2>
