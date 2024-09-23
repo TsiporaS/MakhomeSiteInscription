@@ -22,7 +22,7 @@ con.connect(function(err) {
 });
 }
 
-dropTable("Point");
+dropTable("Coming");
 
  //  dropTable("Present");
 //  dropTable("Product");

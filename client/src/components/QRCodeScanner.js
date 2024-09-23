@@ -137,7 +137,7 @@ export default function QRCodeScanner() {
 
   const pointsStudent = () => {
     if (student) {
-      navigate(`/points/student/${student.Id}`, { state: { studentFirstName: student.FirstName, studentLastName: student.LastName } });
+      navigate(`/points/student/${student.Id}`, { state: { studentFirstName: student.FisrtName, studentLastName: student.LastName } });
     }
   };
 
@@ -158,7 +158,7 @@ export default function QRCodeScanner() {
 
       {student && (
         <div>
-          <h2>Bienvenue {student.FirstName} {student.LastName}</h2>
+          <h2>Bienvenue {student.FisrtName} {student.LastName}</h2>
           <button onClick={pointsStudent}>Voir mes points</button>
         </div>
       )}

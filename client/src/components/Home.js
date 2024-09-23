@@ -26,17 +26,35 @@ export default function Home() {
              </div>
             <h2>Déjà inscrit au Makhome ?</h2>
 
-            <h3>Sélectionnez l'objet de votre venue *</h3>
+            {/* <h3>Sélectionnez l'objet de votre venue *</h3>
             <select value={reason} onChange={(e) => setReason(e.target.value)} required>
             <option value="">Sélectionner</option>
             <option value="Cafeteria">Cafeteria</option>
             <option value="Conference">Conference</option>
-            </select>
+            </select> */}
+
+               <div className='boutons'>
+                  <button
+                  onClick={() => setReason("Cafeteria")}
+                //   style={{ backgroundColor: reason === "Cafeteria" ? 'lightblue' : 'white' }}
+                  >
+                  Cafeteria
+                 </button>
+                 <button
+                   onClick={() => setReason("Conference")}
+                //    style={{ backgroundColor: reason === "Conference" ? 'lightblue' : 'white' }}
+                 >
+                  Conference
+                 </button>
+                </div>
+
+                  {reason && <h4>Objet sélectionné: {reason}</h4>}
+   
             <button onClick={goToScann}> Scanner </button>
 
-            <h2>Si tu es nouveau, inscris toi:</h2>
+            {/* <h2>Si tu es nouveau, inscris toi:</h2>
     
-            <button onClick={goToSignUp}> S'inscrire </button>
+            <button onClick={goToSignUp}> S'inscrire </button> */}
            
         </div>
     );
