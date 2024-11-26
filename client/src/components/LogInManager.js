@@ -45,51 +45,53 @@ export default function LogInManager(){
 
     return (
         <div>
-            <h1>Se connecter</h1>
+            <h1>Connexion</h1>
 
-                <form className="forms" onSubmit={handleLoginSubmit}>
-                    <div>
-                        <label htmlFor="LastName">Nom:</label>
-                        <input
-                            type="text"
-                            id="LastName"
-                            name="LastName"
-                            value={loginData.LastName}
-                            onChange={handleLoginChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="FirstName">Prénom:</label>
-                        <input
-                            type="text"
-                            id="FirstName"
-                            name="FirstName"
-                            value={loginData.FirstName}
-                            onChange={handleLoginChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="Password">Mot de passe:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="Password"
-                            value={loginData.Password}
-                            onChange={handleLoginChange}
-                            required
-                        />
-                    </div>
-                    <button type="submit">Se connecter</button>
-                    {errorMessage && <div className="error-message">{errorMessage}</div>}
-                    <p style={{ color: 'blue', cursor: 'pointer' }} onClick={handleForgotPasswordClick}>
-                    Mot de passe oublié ?
-                    </p>
-                    <div className="signup-button">
-                        <button onClick={handleSignUpClick}>S'inscrire</button>
-                    </div>
-                </form>
+            <form className="forms" onSubmit={handleLoginSubmit}>
+                <div>
+                    <label htmlFor="LastName">Nom:</label>
+                    <input
+                        type="text"
+                        id="LastName"
+                        name="LastName"
+                        value={loginData.LastName}
+                        onChange={handleLoginChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="FirstName">Prénom:</label>
+                    <input
+                        type="text"
+                        id="FirstName"
+                        name="FirstName"
+                        value={loginData.FirstName}
+                        onChange={handleLoginChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="Password">Mot de passe:</label>
+                    <input
+                        type="password"
+                        id="Password"
+                        name="Password"
+                        value={loginData.Password}
+                        onChange={handleLoginChange}
+                        required
+                    />
+                </div>
+                <div className="signup-button">
+                <button type="submit">Se connecter</button>
+                </div>
+                {errorMessage && <div className="error-message">{errorMessage}</div>}
+                <p onClick={handleForgotPasswordClick}>Mot de passe oublié ?</p>
+                <div className="signup-button">
+                    <button type="button" onClick={handleSignUpClick}>
+                        S'inscrire
+                    </button>
+                </div>
+            </form>
         </div>
     );
 }

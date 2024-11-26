@@ -37,8 +37,8 @@ export default function PointsStudent() {
 
     return (
         <div className="category" >
-            <h2 className='titre'>Voici les points de: </h2>
-            <h2>{studentFirstName} {studentLastName}</h2>
+            <h2 >Voici les points de: </h2>
+            <h1>{studentFirstName} {studentLastName}</h1>
 
             <p> Félicitations ! Tu as {points} points </p>
 
