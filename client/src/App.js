@@ -23,6 +23,8 @@ import StudentDetails from "./components/StudentDetails";
 import PointsStudent from "./components/PointsStudents";
 import QRCodeScanner from "./components/QRCodeScanner";
 import ComingsStudent from "./components/ComingsStudent";
+import PasswordRecoveryManager from "./components/PasswordRecoveryManager";
+import ManagerAccount from "./components/ManagerAccount";
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
           <Route path="/manager/home" element={<HomeManager />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/manager/signup" element={<SignUpManager />} />
+          <Route path="/manager/forgot-password" element={<PasswordRecoveryManager />} />
+          <Route path="/manager/account" element={<ManagerAccount />} />
           <Route path="/manager/home/students" element={<StudentsToAccept />} />
           <Route path="/manager/home/allStudents" element={<AllStudents />} />
           <Route path="/manager/studentpreinscrit/:studentId" element={<StudentPreinscritDetails />} />

@@ -115,6 +115,7 @@ export default function VirtualCard() {
         {/* Logo de l'association */}
         <img src={logo} alt="Logo de l'association" style={{ width: '100px', marginBottom: '20px' }} />
 
+        <h1> Carte de fidélité Makhome</h1>
         {/* Nom de l'étudiant */}
         <h2>{studentFirstName} {studentLastName}</h2>
 

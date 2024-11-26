@@ -10,6 +10,7 @@ const { deleteFromTable } = require("../BL/deleteFromTable");
 const { fetchManager, fetchPwdManager } = require("../BL/fetchManagerAndPwd");
 const { insertToTable } = require("../BL/insertToTable");
 const { generateRandomCode } = require("../BL/genereRandomCode");
+const { updateTable } = require("../BL/updateTable");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 
@@ -74,19 +75,19 @@ app.post("/manager/login", async (req, res) => {
 
 
   app.post("/manager/signup", async (req, res) => {
-    const [ FirstName, LastName, Password ] = req.body;
+    const [ FirstName, LastName, Email, Password ] = req.body;
   
     try {
 
-      const myManager = await fetchDataWithManyConditions("Manager", "FirstName", FirstName, "LastName", LastName);
+      const myManager = await fetchDataWithManyConditions("Manager", "FirstName", FirstName, "LastName", LastName, "Email", Email);
   
       console.log("myManager", myManager);
       console.log("myManager.length", myManager.length);
       if (myManager.length == 0) {
-        const parameters = [FirstName, LastName];
-        await insertToTable("Manager", "FirstName, LastName", parameters);
+        const parameters = [FirstName, LastName, Email];
+        await insertToTable("Manager", "FirstName, LastName, Email", parameters);
 
-        const thisManager = await fetchDataWithManyConditions("Manager", "FirstName", FirstName, "LastName", LastName);
+        const thisManager = await fetchDataWithManyConditions("Manager", "FirstName", FirstName, "LastName", LastName, "Email", Email);
         const managerId = thisManager[0].Id;
 
         // Hacher le mot de passe
@@ -289,5 +290,93 @@ app.get("/manager/students/allstudents", async (req, res) => {
       res.status(401).send("Finding Student failed");
     }
   });
+
+  // Route pour vérifier si l'email existe dans la base de données
+app.post("/manager/check-email", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+      const manager = await fetchDataFromTableCondition("Manager", "Email", email);
+
+      if (manager && manager.length > 0) {
+          res.status(200).json({ exists: true, message: "Email exists" });
+      } else {
+          res.status(200).json({ exists: false, message: "Manager not found" });
+      }
+  } catch (error) {
+      console.error("Error checking email:", error.message);
+      res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Route pour réinitialiser le mot de passe
+app.post("/manager/reset-password", async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  try {
+      const manager = await fetchDataFromTableCondition("Manager", "Email", email);
+
+      if (manager && manager.length > 0) {
+          const managerId = manager[0].Id;
+
+          // Hacher le nouveau mot de passe
+          const saltRounds = 10;
+          const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+          // Mettre à jour le mot de passe dans la base de données
+          await updateTable("Password", `Password = '${hashedPassword}'`, `ManagerId = ${managerId}`);
+
+          res.status(200).json({ success: true, message: "Password updated successfully" });
+      } else {
+          res.status(404).json({ success: false, message: "Manager not found" });
+      }
+  } catch (error) {
+      console.error("Error resetting password:", error.message);
+      res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.post("/manager-account", async (req, res) => {
+   const { firstname, lastname } = req.body;
+  // const parameters = req.body;
+  // console.log("parameters", parameters);
+  // const firstname = parameters.firstname;
+  // const lastname = parameters.lastname;
+  console.log("lastname", lastname);
+  console.log("firstname", firstname);
+
+  try {
+    const _manager = await fetchManager(firstname, lastname); 
+    console.log("_manager", _manager);
+
+    if (_manager) {
+      const hashedPassword = await fetchPwdManager(_manager.Id);
+
+      // Assurez-vous que vous accédez à la bonne propriété du mot de passe haché
+      const hashedPwd = hashedPassword.Password;
+          
+      // Vérifiez les types
+      console.log("Hashed password type:", typeof hashedPwd);
+
+  
+      const manager = { 
+        firstName: _manager.FirstName, 
+        lastName: _manager.LastName,
+        email: _manager.Email,
+        hashpwd: hashedPwd
+      };
+
+     
+    
+      res.status(200).json({manager:  manager });
+      
+  } else {
+      res.status(404).json({ message: "Manager not found" });
+  }
+} catch (error) {
+  console.error("Error during login:", error.message);
+  res.status(500).json({ message: "Internal server error" });
+}
+});
 
   module.exports = app;

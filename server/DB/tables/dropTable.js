@@ -22,7 +22,7 @@ con.connect(function(err) {
 });
 }
 
-dropTable("Coming");
+// dropTable("Manager");
 
  //  dropTable("Present");
 //  dropTable("Product");

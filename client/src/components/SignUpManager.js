@@ -8,6 +8,7 @@ export default function SignUpManager() {
   const [formData, setFormData] = useState({
     FirstName: "",
     LastName: "",
+    Email: "",
     Password: ""
   });
 
@@ -24,6 +25,7 @@ export default function SignUpManager() {
     const {
       FirstName,
       LastName,
+      Email,
       Password
     } = formData;
     
@@ -31,6 +33,7 @@ export default function SignUpManager() {
 
     if (FirstName === "") missingFields.push("Prénom");
     if (LastName === "") missingFields.push("Nom");
+    if (Email === "") missingFields.push("Email");
     if (Password === "") missingFields.push("Mot de passe");
     
     if (missingFields.length > 0) {
@@ -50,6 +53,7 @@ export default function SignUpManager() {
         setFormData({
           FirstName: "",
           LastName: "",
+          Email: "",
           Password: ""
         });
         navigate('/manager/home');
@@ -87,6 +91,17 @@ export default function SignUpManager() {
             id="firstname"
             name="FirstName"
             value={formData.FirstName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email: *</label>
+          <input
+            type="text"
+            id="email"
+            name="Email"
+            value={formData.Email}
             onChange={handleChange}
             required
           />

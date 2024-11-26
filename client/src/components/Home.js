@@ -10,21 +10,26 @@ export default function Home() {
     const navigate = useNavigate();
     
     const goToScann = () => {
-        
+        if (reason === "") {
+            alert("Vous devez obligatoirement sélectionner la raison de votre visite au Makhome.")
+        }
+        else {
         navigate(`/scann`, { state: { reason: reason } });
+        }
     };
 
     const goToSignUp = () => {
        
         navigate(`/signup`);
+        
     };
 
     return (
         <div>
             <div className="header">
-                <h1>Bienvenue </h1>
+                <h1>Bienvenue au Makhome !! </h1>
              </div>
-            <h2>Déjà inscrit au Makhome ?</h2>
+            {/* <h2>Déjà inscrit au Makhome ?</h2> */}
 
             {/* <h3>Sélectionnez l'objet de votre venue *</h3>
             <select value={reason} onChange={(e) => setReason(e.target.value)} required>
@@ -32,6 +37,8 @@ export default function Home() {
             <option value="Cafeteria">Cafeteria</option>
             <option value="Conference">Conference</option>
             </select> */}
+
+            <h2> Sélectionne la raison de ta venue.</h2>
 
                <div className='boutons'>
                   <button

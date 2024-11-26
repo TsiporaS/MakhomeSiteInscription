@@ -39,6 +39,10 @@ export default function LogInManager(){
         navigate('/manager/signup');
     };
 
+    const handleForgotPasswordClick = () => {
+        navigate('/manager/forgot-password');
+    };
+
     return (
         <div>
             <h1>Se connecter</h1>
@@ -67,7 +71,7 @@ export default function LogInManager(){
                         />
                     </div>
                     <div>
-                        <label htmlFor="Password">Password:</label>
+                        <label htmlFor="Password">Mot de passe:</label>
                         <input
                             type="password"
                             id="password"
@@ -79,6 +83,9 @@ export default function LogInManager(){
                     </div>
                     <button type="submit">Se connecter</button>
                     {errorMessage && <div className="error-message">{errorMessage}</div>}
+                    <p style={{ color: 'blue', cursor: 'pointer' }} onClick={handleForgotPasswordClick}>
+                    Mot de passe oublié ?
+                    </p>
                     <div className="signup-button">
                         <button onClick={handleSignUpClick}>S'inscrire</button>
                     </div>

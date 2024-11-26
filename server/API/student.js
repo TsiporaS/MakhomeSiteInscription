@@ -6,6 +6,8 @@ const { insertToTable } = require("../BL/insertToTable");
 const { fetchDataFromTableCondition } = require("../BL/selectCondition");
 const { generateRandomCode } = require("../BL/genereRandomCode");
 const { updateTable } = require("../BL/updatePoints");
+const { fetchDateFromComing } = require("../BL/fetchDateFromComing");
+const { getLocalizedDate } = require("../BL/localdate");
 
 app.use(bodyParser.json());
 
@@ -119,15 +121,48 @@ app.post('/api/student/:barcode', async (req, res) => {
       // res.json(student[0]); // Renvoie le premier étudiant trouvé
 
       // Récupérer la date et heure actuelle
-      const now = new Date();
+      const now = getLocalizedDate(new Date());
       const sqlDateTime = now.toISOString().slice(0, 19).replace('T', ' ');
 
       const parameters = [ student[0].Id, sqlDateTime, reason ];
 
-      await insertToTable("Coming", "StudentId, Date, Reason", parameters);
+      
       // await insertToTable("Coming", "StudentId, Date, Reason", `'${student[0].Id}', '${sqlDateTime}, '${reason}'`);
       // await updateTable("Point", "Points = Points + 1", `StudentId = '${student[0].Id}'`);
-      await updateTable(student[0].Id);
+
+
+      if (reason === "Cafeteria" ){
+        const _date = getLocalizedDate(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0, 0));
+        const _mydate = _date.toISOString().slice(0, 19).replace('T', ' ');
+        console.log("_mydate", _mydate);
+        const count = await fetchDateFromComing(student[0].Id, _mydate);
+        const num = count[0].count;
+        console.log("count", num );
+
+        if (num === 0) {
+          await updateTable(student[0].Id);
+        }
+         
+      }
+      else if (reason === "Conference" ){
+        const _date2 = getLocalizedDate(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 0, 0, 0));
+        const _mydate2 = _date2.toISOString().slice(0, 19).replace('T', ' ');
+        console.log("_mydate2", _mydate2);
+        const count2 = await fetchDateFromComing(student[0].Id, _mydate2);
+        const num2 = count2[0].count;
+        console.log("count2", num2 );
+
+        if (num2 === 0 ) {
+          await updateTable(student[0].Id);
+        }
+        
+      }
+      await insertToTable("Coming", "StudentId, Date, Reason", parameters);
+      const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      console.log("Fuseau horaire du serveur :", timeZone);
+      console.log(new Date().toISOString());
+      console.log(new Date().toString());
+
 
       res.status(200).json({message: "Operation reussie", student: student[0]});
       

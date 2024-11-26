@@ -66,7 +66,7 @@ export default function StudentsToAccept() {
             <th>Prénom</th>
             <th>Téléphone</th>
             <th>Email</th>
-            <th>Adresse</th>
+            <th>Adresse / Code postal</th>
             <th>Date de naissance</th>
             <th>Domaine d'études</th>
             <th>Année d'études</th>

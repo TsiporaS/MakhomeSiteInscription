@@ -7,12 +7,13 @@ import '../css/HomeManager.css';
 export default function HomeManager(){
 
     const { user } = useContext(UserContext); // Obtenir l'utilisateur depuis le contexte
-
+    console.log("user",user);
     const navigate = useNavigate();
 
     // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de connexion
     const checkAuthentication = (callback) => {
         if (!user) {
+            alert("Vous devez d'abord etre connecté.")
             navigate('/manager/login'); // Rediriger vers la page de login si non connecté
         } else {
             callback();
@@ -43,10 +44,15 @@ export default function HomeManager(){
         });
     };
 
+    const viewManager = () => {
+        navigate('/manager/account', { state: { firstname: user.FirstName, lastname: user.LastName } });
+    };
+
    return (
         <div>
             <div className="header">
-                <h1>Bienvenue </h1>
+                {(user ? <h1>Bienvenue {user.FirstName} {user.LastName} </h1> : <h1>Bienvenue </h1>)}
+                {/* <h1>Bienvenue {user.FirstName} {user.LastName} </h1> */}
              </div>
             <button onClick={studentsToAccept}> Voir les étudiants préinscrits </button>
 
@@ -55,6 +61,11 @@ export default function HomeManager(){
             <button onClick={addNewManager}> Enregistrer un nouveau Rav </button>
 
             <button onClick={goToStudentProfile}> Afficher l'interface étudiant </button>
+
+            { user &&  
+            <button onClick={viewManager}> Voir mon compte </button>
+            }
+           
            
         </div>
     );

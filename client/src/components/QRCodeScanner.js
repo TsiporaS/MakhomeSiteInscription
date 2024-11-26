@@ -143,7 +143,7 @@ export default function QRCodeScanner() {
 
   return (
     <div>
-      <h1>Scanner le QR Code</h1>
+      { !result && <h1>Scannez votre carte de fidélité Makhome.</h1>}
 
       {isCameraActive && !scanned && (
         <QrReader
@@ -154,7 +154,7 @@ export default function QRCodeScanner() {
         />
       )}
 
-      {result && <p>QR Code scanné : {result}</p>}
+      {/* {result && <p>Votre QR Code : {result}</p>} */}
 
       {student && (
         <div>

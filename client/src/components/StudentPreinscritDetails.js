@@ -48,7 +48,7 @@ export default function StudentPreinscritDetails() {
             <p><strong>Prénom :</strong> <span className="student-data">{student.FisrtName}</span></p>
             <p><strong>Téléphone :</strong> <span className="student-data">{student.Phone}</span></p>
             <p><strong>Email :</strong> <span className="student-data">{student.Email}</span></p>
-            <p><strong>Adresse :</strong> <span className="student-data">{student.Adress}</span></p>
+            <p><strong>Adresse / Code postal :</strong> <span className="student-data">{student.Adress}</span></p>
             <p><strong>Date de naissance :</strong> <span className="student-data">{formatDate(student.Birthday)}</span></p>
             <p><strong>Domaine d'études :</strong> <span className="student-data">{student.Studies}</span></p>
             <p><strong>Année d'études :</strong> <span className="student-data">{student.Year}</span></p>
