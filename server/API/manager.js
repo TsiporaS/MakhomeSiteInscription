@@ -52,8 +52,14 @@ app.post("/manager/login", async (req, res) => {
         console.log("Password type:", typeof Password);
         console.log("Hashed password type:", typeof hashedPwd);
 
+        // Vérifiez les mots de passe
+        console.log("Password:",  Password);
+        console.log("Hashed password:",  hashedPwd);
+
         // Comparer le mot de passe fourni avec le mot de passe haché stocké
         const isMatch = await bcrypt.compare(Password, hashedPwd);
+        console.log("isMatch", isMatch);
+
 
         if (isMatch) {
             // Générer le token
@@ -93,6 +99,11 @@ app.post("/manager/login", async (req, res) => {
         // Hacher le mot de passe
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(Password, saltRounds);
+
+         // Comparer le mot de passe fourni avec le mot de passe haché stocké
+        const isMatch = await bcrypt.compare(Password, hashedPassword);
+        console.log("isMatch", isMatch);
+
         const parameters2 = [managerId, hashedPassword];
 
         await insertToTable("Password", "ManagerId, Password", parameters2);

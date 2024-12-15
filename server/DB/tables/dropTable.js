@@ -1,12 +1,20 @@
 var mysql = require('mysql2');
 
 function dropTable(tableName) {
-  var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "Moshe26!",
+//   var con = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "Moshe26!",
+//   port: 3306,
+//   database: "makhomedb",
+// });
+
+var con = mysql.createConnection({
+  host: "mysql-makhome.alwaysdata.net",
+  user: "makhome",
+  password: "G65*9sK_Sfea3K.",
   port: 3306,
-  database: "makhomedb",
+  database: "makhome_db",
 });
 
 con.connect(function(err) {
@@ -22,7 +30,7 @@ con.connect(function(err) {
 });
 }
 
-// dropTable("Manager");
+dropTable("Password");
 
  //  dropTable("Present");
 //  dropTable("Product");

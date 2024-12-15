@@ -1,0 +1,4 @@
+[14/Dec/2024:19:40:09 +0100] [upstream] Upstream starting: /usr/alwaysdata/apache/2.4.59/bin/apache -f /home/makhome/admin/config/apache/apache.conf -D FOREGROUND (env: {'HOME': '/home/makhome', 'LANG': 'en_US.UTF-8', 'LC_ALL': 'en_US.UTF-8', 'PATH': '/home/makhome/.local/bin:/home/makhome/.local/share/gem/ruby/3.3.0/bin:/home/makhome/.gem/ruby/3.3.0/bin:/home/makhome/.composer/vendor/bin:/home/makhome/.npm-packages/bin:/usr/local/bin:/usr/bin:/bin', 'TMPDIR': '/home/makhome/admin/tmp', 'APACHE_ROOT': '/usr/alwaysdata/apache/2.4.59'}, cwd: /home/makhome/)
+[14/Dec/2024:19:40:09 +0100] [upstream] Upstream started PID: 3800883
+[14/Dec/2024:20:10:26 +0100] [upstream] [3800883] SIGTERM sent to upstream
+[14/Dec/2024:20:10:26 +0100] [upstream] [3800883] Upstream stopped (reason: idle)

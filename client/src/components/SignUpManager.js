@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { GoToServer, convertFormDataToArray } from "../fetch";
 import '../css/SignUpManager.css'; // Import the CSS file
+import { UserContext } from "./UserContext";
 
 export default function SignUpManager() {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     FirstName: "",
     LastName: "",
@@ -48,6 +50,8 @@ export default function SignUpManager() {
       .then((response) => {
         console.log("Server response:", response.message);
         alert("Enregistrement effectué");
+        setUser({ FirstName: formData.FirstName, LastName: formData.LastName, Id: formData.Id });
+
 
         // Clear form fields
         setFormData({
